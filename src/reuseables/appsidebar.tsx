@@ -20,6 +20,8 @@ import { trpc } from "@/trpc/client";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { SignOutButton } from "@clerk/nextjs";
 
 export function AppSidebar() {
   const [subjects] = trpc.seed.getAllSubjectsAndLabs.useSuspenseQuery();
@@ -30,7 +32,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="w-full flex items-center justify-center relative">
-        <span className="font-bold text-2xl mt-2">Mca Sem 1</span>
+        <span className="font-bold text-2xl mt-4">🎓 MCA Lab Notes</span>
         <SidebarTrigger className="absolute right-[-40px]" />
       </SidebarHeader>
       <SidebarContent>
@@ -69,7 +71,11 @@ export function AppSidebar() {
           ))}
         </Accordion>
       </SidebarContent>
-      <SidebarFooter />
+      <SidebarFooter className="mb-2">
+        <SignOutButton>
+          <Button variant={"destructive"}>LOGOUT</Button>
+        </SignOutButton>
+      </SidebarFooter>
     </Sidebar>
   );
 }
