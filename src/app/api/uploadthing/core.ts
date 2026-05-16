@@ -18,8 +18,8 @@ export const ourFileRouter = {
   })
     .input(
       z.object({
-        subjectId: z.string().uuid(),
         labId: z.string().uuid(),
+        subjectId: z.string().uuid(),
       }),
     )
     .middleware(async ({ req: _req, input }) => {
@@ -59,7 +59,7 @@ export const ourFileRouter = {
       };
     })
     .onUploadComplete(async ({ metadata, file }) => {
-      const { labId, subjectId, userId } = metadata;
+      const { userId, labId,subjectId } = metadata;
 
       await client.trigger({
         url: `${process.env.UPSTASH_WORKFLOW_URL}/api/workflow/generate-questions`,
@@ -72,7 +72,7 @@ export const ourFileRouter = {
         },
       });
 
-      return { message: "The seeding is successful", status: 200 };
+      return { imageUrl: file.ufsUrl, fileKey: file.key };
     }),
 } satisfies FileRouter;
 

@@ -7,17 +7,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Loader2Icon } from "lucide-react";
-import React from "react";
 
 interface pageProps {
   open: boolean;
   setOpen: (open: any) => void;
-  description : string,
-  onClick : () => void,
-  isLoading : boolean
+  description: string;
+  onClick: () => void;
+  isLoading: boolean;
 }
 
-const ReuseableDialog = ({ open, setOpen, description, onClick,isLoading }: pageProps) => {
+const ReuseableDialog = ({
+  open,
+  setOpen,
+  description,
+  onClick,
+  isLoading,
+}: pageProps) => {
   return (
     <Dialog open={open} onOpenChange={() => setOpen((open: boolean) => !open)}>
       <DialogContent>
@@ -41,9 +46,7 @@ const ReuseableDialog = ({ open, setOpen, description, onClick,isLoading }: page
               onClick={onClick}
               disabled={isLoading}
             >
-              {isLoading && (
-                <Loader2Icon className="animate-spin" />
-              )}
+              {isLoading && <Loader2Icon className="animate-spin" />}
               DELETE
             </Button>
           </div>

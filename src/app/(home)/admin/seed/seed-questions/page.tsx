@@ -2,11 +2,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import SelectLabs from "@/reuseables/select-lab";
 import SelectSubjects from "@/reuseables/select-subjects";
 import { seedRouter } from "@/trpc-procedures-types/types";
 import { trpc } from "@/trpc/client";
-import { UploadButton } from "@/utils/uploadthing";
+import { UploadButton, useUploadThing } from "@/utils/uploadthing";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
@@ -19,7 +20,7 @@ const Page = () => {
   const [subjectId, setSubjectId] = useState<string>("");
   const { data, isLoading } = trpc.seed.getValidLabIds.useQuery(
     { subjectId },
-    { enabled: !!subjectId }
+    { enabled: !!subjectId },
   );
 
   const [labs, setLabs] = useState<
@@ -45,6 +46,42 @@ const Page = () => {
       toast.error(error.message, { position: "top-center" });
     },
   });
+
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    onClientUploadComplete: () => {
+      toast.success(
+        "The Generation of question is started in the background !",
+        { position: "top-center" },
+      );
+    },
+    onUploadError: (error) => {
+      toast.error(error.message, { position: "top-center" });
+    },
+  });
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
+    setFile(e.target.files[0]);
+  };
+
+  const handleGenerateQuestions = async () => {
+    if (!labId || !subjectId) {
+      toast.warning("No lab or no subject selected !!", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    if (file === null) {
+      toast.error("No file is selected !!", { position: "top-center" });
+      return;
+    }
+
+    await startUpload([file], { labId, subjectId });
+  };
 
   return (
     <ErrorBoundary fallback={<p>Error...</p>}>
@@ -116,23 +153,13 @@ const Page = () => {
                   </div>
                 )}
 
-                <UploadButton
-                  endpoint={"imageUploader"}
-                  input={{ labId, subjectId }}
-                  className="border p-4 rounded-2xl w-[180px]"
-                  onClientUploadComplete={(response) => {
-                    toast.success("Question seeding started in background !!", {
-                      position: "top-center",
-                    });
-                    setSubjectId("");
-                    setLabId("");
-                    console.log({ response });
-                  }}
-                  disabled={!subjectId || !labId}
-                  onUploadError={(error) => {
-                    toast.error(error.message, { position: "top-center" });
-                  }}
-                />
+                <Input type="file" onChange={handleFileChange} />
+
+                <Button onClick={handleGenerateQuestions}>
+                  {isUploading && <Loader2Icon className="animate-spin" />}
+                  Generate Questions{" "}
+                </Button>
+
                 <span className="text-xs text-muted-foreground">
                   ⚡ As soon as you select an image, the process starts
                   automatically. Please double-check before uploading.

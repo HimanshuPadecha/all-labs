@@ -26,7 +26,7 @@ const QuestionHolder = ({ question }: pageProps) => {
   const [editQuestion, setEditQuestion] = useState<boolean>();
   const [questionState, setQuestionState] = useState(que.questionText);
   const [questionNoState, setQuestionNoState] = useState<string>(
-    String(que.questionNo)
+    String(que.questionNo),
   );
   const [editAnswer, setEditAnswer] = useState(false);
 
@@ -102,7 +102,7 @@ const QuestionHolder = ({ question }: pageProps) => {
 
   const [open, setOpen] = useState(false);
   const [answerState, setAnswerState] = useState<string>(
-    answer?.answerText || ""
+    answer?.answerText || "",
   );
   const deleteQuestion = trpc.admin.deleteQuestion.useMutation({
     onSuccess: () => {
@@ -171,7 +171,7 @@ const QuestionHolder = ({ question }: pageProps) => {
             "absolute flex transition-all ease-out gap-3",
             showQuestionEditButton || editQuestion
               ? "right-3 opacity-100"
-              : "right-[35px] opacity-0"
+              : "right-[35px] opacity-0",
           )}
         >
           <Button
@@ -213,7 +213,9 @@ const QuestionHolder = ({ question }: pageProps) => {
         <div
           className={cn(
             "absolute right-2 transition-all ease-in",
-            showAnswerEditButton ? "top-2 opacity-100" : "top-[-30px] opacity-0"
+            showAnswerEditButton
+              ? "top-2 opacity-100"
+              : "top-[-30px] opacity-0",
           )}
         >
           <Tooltip>
@@ -240,7 +242,7 @@ const QuestionHolder = ({ question }: pageProps) => {
             `absolute right-2 flex gap-3 transition-all ease-in-out`,
             showAnswerEditButton
               ? "bottom-[10px] opacity-100"
-              : "bottom-[-35px] opacity-0"
+              : "bottom-[-35px] opacity-0",
           )}
         >
           <Button

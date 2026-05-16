@@ -12,7 +12,7 @@ export const seedRouter = createTRPCRouter({
       z.object({
         subjectName: z.string(),
         labNo: z.number(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { labNo, subjectName } = input;
@@ -23,7 +23,7 @@ export const seedRouter = createTRPCRouter({
           db
             .select({ id: subjects.id })
             .from(subjects)
-            .where(eq(subjects.name, subjectName))
+            .where(eq(subjects.name, subjectName)),
         );
 
       const [info] = await db
@@ -45,7 +45,7 @@ export const seedRouter = createTRPCRouter({
     .input(
       z.object({
         subjectId: z.string().uuid(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { subjectId } = input;
@@ -68,7 +68,7 @@ export const seedRouter = createTRPCRouter({
     .input(
       z.object({
         labId: z.string().uuid(),
-      })
+      }),
     )
     .mutation(async ({ input }) => {
       const { labId } = input;
@@ -88,7 +88,7 @@ export const seedRouter = createTRPCRouter({
     .input(
       z.object({
         labId: z.string().uuid(),
-      })
+      }),
     )
     .query(async ({ input }) => {
       const { labId } = input;
