@@ -7,7 +7,7 @@ import SelectLabs from "@/reuseables/select-lab";
 import SelectSubjects from "@/reuseables/select-subjects";
 import { seedRouter } from "@/trpc-procedures-types/types";
 import { trpc } from "@/trpc/client";
-import { UploadButton, useUploadThing } from "@/utils/uploadthing";
+import { useUploadThing } from "@/utils/uploadthing";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
@@ -84,108 +84,158 @@ const Page = () => {
   };
 
   return (
-    <ErrorBoundary fallback={<p>Error...</p>}>
-      <Suspense fallback={<p>Loading...</p>}>
-        <Card className="max-w-[500px]">
-          <CardTitle>
-            <div className="w-full flex items-center justify-center">
-              <span className="text-2xl">🚀 Seed the Questions : </span>
+    <ErrorBoundary fallback={<p className="text-destructive text-center p-4">Something went wrong.</p>}>
+      <Suspense fallback={<div className="flex justify-center p-8"><Loader2Icon className="animate-spin text-muted-foreground" /></div>}>
+        <Card className="max-w-4xl mx-auto w-full shadow-sm">
+          <CardTitle className="p-6 pb-2">
+            <div className="w-full flex items-center justify-between border-b pb-4">
+              <span className="text-2xl font-bold flex items-center gap-2">
+                🚀 Seed Questions
+              </span>
             </div>
           </CardTitle>
-          <CardContent>
-            <div className="flex ">
-              <div className="flex items-center justify-center flex-col gap-5 ">
-                <div className="flex items-center justify-center  gap-2">
-                  <SelectSubjects
-                    setLabId={setLabId}
-                    setSubjectId={setSubjectId}
-                    subjectId={subjectId}
-                    subjects={subjects}
-                  />
-                  <Badge
-                    className="h-5 min-w-5 rounded-full px-1 tabular-nums"
-                    variant={"secondary"}
-                  >
-                    {subjects.length}
-                  </Badge>
-                </div>
-
-                <div className="flex items-center justify-center relative gap-2">
-                  <SelectLabs
-                    isLoading={isLoading}
-                    labId={labId}
-                    labs={labs}
-                    setLabId={setLabId}
-                  />
-                  <Badge
-                    className="h-5 min-w-5 rounded-full px-1 tabular-nums"
-                    variant={"default"}
-                  >
-                    {isLoading ? (
-                      <Loader2Icon className="h-3 w-3 animate-spin" />
-                    ) : (
-                      labs.length
-                    )}
-                  </Badge>
-                </div>
-
-                {labId && (
-                  <div className="flex items-center justify-center flex-col gap-3">
-                    <Link href={`/admin/seed/check-seeded/${labId}`}>
-                      <Button
-                        variant={"secondary"}
-                        className="text-sm text-muted-foreground"
-                      >
-                        Check Seeded
-                      </Button>
-                    </Link>
-                    <Button
-                      onClick={() => generateAnswers.mutate({ labId })}
-                      variant={"default"}
-                      className="flex items-center justify-center text-sm"
-                      disabled={generateAnswers.isPending}
+          <CardContent className="p-6 pt-4">
+            <div className="grid md:grid-cols-5 gap-8">
+              {/* Left Column: Form Controls */}
+              <div className="md:col-span-3 flex flex-col gap-6">
+                
+                {/* Selectors */}
+                <div className="flex flex-col gap-4 bg-muted/30 p-5 rounded-xl border">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <SelectSubjects
+                        setLabId={setLabId}
+                        setSubjectId={setSubjectId}
+                        subjectId={subjectId}
+                        subjects={subjects}
+                      />
+                    </div>
+                    <Badge
+                      className="h-6 min-w-6 rounded-full px-2 tabular-nums flex items-center justify-center"
+                      variant="secondary"
                     >
-                      {generateAnswers.isPending && (
-                        <Loader2Icon className="animate-spin" />
+                      {subjects.length}
+                    </Badge>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <SelectLabs
+                        isLoading={isLoading}
+                        labId={labId}
+                        labs={labs}
+                        setLabId={setLabId}
+                      />
+                    </div>
+                    <Badge
+                      className="h-6 min-w-6 rounded-full px-2 tabular-nums flex items-center justify-center"
+                      variant="default"
+                    >
+                      {isLoading ? (
+                        <Loader2Icon className="h-3 w-3 animate-spin" />
+                      ) : (
+                        labs.length
                       )}
-                      Generate Answers{" "}
-                    </Button>
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Actions & Upload (Only visible if Lab is selected) */}
+                {labId ? (
+                  <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                    <div className="grid grid-cols-2 gap-3">
+                      <Link href={`/admin/seed/check-seeded/${labId}`}>
+                        <Button
+                          variant="secondary"
+                          className="w-full"
+                        >
+                          Check Seeded
+                        </Button>
+                      </Link>
+                      <Button
+                        onClick={() => generateAnswers.mutate({ labId })}
+                        variant="outline"
+                        className="w-full"
+                        disabled={generateAnswers.isPending}
+                      >
+                        {generateAnswers.isPending && (
+                          <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        Seed Answers Only
+                      </Button>
+                    </div>
+
+                    <div className="border-2 border-dashed rounded-xl p-5 flex flex-col gap-4 items-center bg-muted/10 transition-colors hover:bg-muted/30">
+                      <div className="w-full">
+                        <label className="text-sm font-medium mb-1.5 block">
+                          Upload Lab Questions Image
+                        </label>
+                        <Input 
+                          type="file" 
+                          accept="image/*"
+                          onChange={handleFileChange} 
+                          className="cursor-pointer bg-background"
+                        />
+                      </div>
+                      
+                      <Button 
+                        onClick={handleGenerateQuestions}
+                        className="w-full shadow-sm"
+                        disabled={!file || isUploading}
+                        size="lg"
+                      >
+                        {isUploading ? (
+                          <>
+                            <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+                            Uploading & Generating...
+                          </>
+                        ) : (
+                          "Generate Questions"
+                        )}
+                      </Button>
+                      
+                      <p className="text-xs text-muted-foreground text-center">
+                        ⚡ Select an image and click the button above to start the process.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-40 border-2 border-dashed rounded-xl flex items-center justify-center text-muted-foreground bg-muted/10 text-sm">
+                    Select a subject and lab to continue
                   </div>
                 )}
-
-                <Input type="file" onChange={handleFileChange} />
-
-                <Button onClick={handleGenerateQuestions}>
-                  {isUploading && <Loader2Icon className="animate-spin" />}
-                  Generate Questions{" "}
-                </Button>
-
-                <span className="text-xs text-muted-foreground">
-                  ⚡ As soon as you select an image, the process starts
-                  automatically. Please double-check before uploading.
-                </span>
               </div>
-              <div className="flex flex-col text-xs text-muted-foreground gap-3 p-4">
-                <h4 className="line-clamp-2">
-                  Manual to use this component :{" "}
-                </h4>
 
-                <p className="line-clamp-3">1. 📘 Select the subject.</p>
-                <p className="line-clamp-3">
-                  2. 🧫 Choose the lab related to the subject.
-                </p>
-                <p className="line-clamp-5">
-                  3. 🖼️ Upload the image containing lab questions to generate
-                  seed both questions and answers.
-                </p>
-                <p className="line-clamp-5">
-                  4. 🧩 "Generate Answers" button to seed Answers only.
-                </p>
-                <p className="line-clamp-4">
-                  📌 It is not mandatory to upload all questions in a single
-                  upload.
-                </p>
+              {/* Right Column: Instructions */}
+              <div className="md:col-span-2 flex flex-col">
+                <div className="bg-muted/30 border rounded-xl p-5 h-full">
+                  <h4 className="font-semibold text-sm mb-4 border-b pb-2">
+                    How to use this tool
+                  </h4>
+                  <div className="flex flex-col text-sm text-muted-foreground gap-4">
+                    <div className="flex gap-2">
+                      <span className="text-foreground font-medium">1.</span> 
+                      <span>📘 Select the target subject.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-foreground font-medium">2.</span> 
+                      <span>🧫 Choose the specific lab for that subject.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-foreground font-medium">3.</span> 
+                      <span>🖼️ Upload an image of the lab questions and click "Generate Questions" to seed both questions and answers.</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span className="text-foreground font-medium">4.</span> 
+                      <span>🧩 Use "Seed Answers Only" if questions are already present.</span>
+                    </div>
+                    <div className="mt-2 p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-medium leading-relaxed">
+                      📌 Note: You don't need to upload all questions at once. Multiple uploads are supported and will append to the lab.
+                    </div>
+                  </div>
+                </div>
               </div>
+
             </div>
           </CardContent>
         </Card>

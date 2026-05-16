@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import AddQuestion from "@/reuseables/add-question";
 import DeleteLabQuestionsButton from "@/reuseables/delete-lab-questions";
+import NoQuestions from "@/reuseables/no-questions";
 import QuestionHolder from "@/reuseables/question-holder";
 import { trpc } from "@/trpc/client";
 import Link from "next/link";
@@ -18,7 +19,7 @@ const CheckSeeded = ({ labId }: pageProps) => {
   const [questions] = trpc.seed.getQuestionsAnswers.useSuspenseQuery({ labId });
 
   if (questions.length === 0) {
-    return <div>There is not question for this lab</div>;
+    return <NoQuestions />;
   }
   const { name: subjectName } = questions[0]?.subject;
   const { name: labName, labNo } = questions[0]?.lab;
