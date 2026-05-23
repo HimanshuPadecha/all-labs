@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# All Labs 🔬
 
-## Getting Started
+> **⚠️ Note: This project is currently IN PROGRESS.**
 
-First, run the development server:
+## 📖 The Problem
+
+As MCA students, we are required to write all our labs in our generals (journals). It was always a huge pain to write them all by ourselves. The manual effort consumed a significant amount of time, meaning we wouldn't get enough time for actual coding. Furthermore, trying to find these lab materials from someone else was incredibly hectic.
+
+## 💡 The Solution
+
+**All Labs** was built to solve this exact problem. This project serves as a centralized platform where all the lab materials and resources will be readily available for all students. 
+
+By using this platform, students can save their precious time and focus more on writing code, learning new concepts, and building projects instead of worrying about completing their journals manually.
+
+## 🚀 Tech Stack
+
+This project is built using a modern and robust tech stack:
+
+- **Framework:** [Next.js](https://nextjs.org/) 16
+- **Styling & UI:** [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/) & [Framer Motion](https://www.framer.com/motion/)
+- **Authentication:** [Clerk](https://clerk.dev/)
+- **Database ORM:** [Drizzle ORM](https://orm.drizzle.team/)
+- **Data Fetching:** [tRPC](https://trpc.io/) & [React Query](https://tanstack.com/query/latest)
+- **Uploads:** [UploadThing](https://uploadthing.com/)
+
+## 🛠️ Getting Started
+
+First, install the dependencies. The project uses `bun`.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, run the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+bun run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
