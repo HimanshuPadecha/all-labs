@@ -30,52 +30,38 @@ export const { POST } = serve(async (context) => {
 
   const geminiAnswers = await context.run("answer-req", async () => {
     try {
-      const ANS_PROMPT = `
-Act as a Senior Full-Stack Developer and Technical Instructor. Your task is to generate precise, production-ready solutions for technical questions.
-
-CONTEXT
-You will receive an array of objects containing questionId and questionText.
-You must provide a high-quality, technically accurate response for each.
-
-SCHEMA RULES
-Return an array of objects in this structure:
-- questionId: string (must exactly match the input)
-- answerText: string
-- outputText : string (If applicable)
-
-TECHNICAL CONTENT RULES
-SQL:
-- Use optimized queries
-- SQL keywords in UPPERCASE (SELECT, JOIN, WHERE, etc)
-
-Python:
-- Clean, idiomatic code
-- 4-space indentation
-- Brief comments
-
-HTML / Frontend:
-- Provide a complete, self-contained HTML5 document
-- CSS inside <style>
-- JS inside <script>
-- Use semantic tags and responsive layout
-
-Flowcharts:
-- Convert logic into step-by-step textual algorithm or pseudo-code
-
-OUTPUT FORMAT RULES (STRICT)
-1. Return ONLY a raw JSON array
-2. Do NOT wrap output in markdown or code blocks
-3. No conversational text
-4. Ensure valid JSON
-5. In answerText:
-   - Escape newlines as \\n
-   - Escape double quotes as \\\"
-   - Escape backslashes as \\\\
-   - No triple backticks
-
-Here is the questions array:
-${JSON.stringify(seededQuestions, null, 2)}
-`;
+      const ANS_PROMPT = [
+        "Act as a Senior Full-Stack Developer and Technical Instructor. Your task is to generate precise, production-ready solutions for an array of technical questions.",
+        "",
+        "CONTEXT:",
+        "You will receive a JSON array containing `questionId` and `questionText`. You must process every single question in the array.",
+        "",
+        "OUTPUT SCHEMA:",
+        "Return ONLY a raw JSON array. Do not include markdown formatting, backticks (```), or conversational text. Each object in the array must strictly adhere to this structure:",
+        "",
+        "[",
+        "  {",
+        '    "questionId": "string (Must exactly match the input questionId)",',
+        '    "answerText": "string (The actual code solution, SQL query, HTML document, or technical explanation)",',
+        '    "outputText": "string (The simulated execution output, console logs, query results, or visual description of the rendered code. If not applicable, return an empty string)"',
+        "  }",
+        "]",
+        "",
+        "TECHNICAL CONTENT RULES:",
+        "- SQL: Write optimized queries. Keywords MUST be in UPPERCASE. `outputText` should simulate the returned table/rows.",
+        "- Python: Write clean, idiomatic code with 4-space indentation and brief comments. `outputText` must represent the exact console output/stdout.",
+        "- HTML/JS/CSS: Provide a complete, self-contained HTML5 document. `outputText` should be a brief description of what the user would see rendered on the screen.",
+        "- Flowcharts/Algorithms: Convert logic into step-by-step pseudo-code in `answerText`. Leave `outputText` empty.",
+        "",
+        "JSON ESCAPING RULES (CRITICAL):",
+        "- All strings must be strictly valid for JSON parsing.",
+        "- Escape all newlines as \\n",
+        '- Escape all double quotes as \\"',
+        "- Escape all backslashes as \\\\",
+        "",
+        "INPUT DATA:",
+        JSON.stringify(seededQuestions, null, 2),
+      ].join("\n");
 
       const geminiResponse = await ai.models.generateContent({
         model: "gemini-2.5-flash",
@@ -120,6 +106,23 @@ ${JSON.stringify(seededQuestions, null, 2)}
     }
   });
 });
+
+// FREE GEMINI MODELS
+
+// gemini-3-flash-preview
+// gemini-2.5-pro
+// gemini-2.5-flash
+// gemini-2.5-flash-lite
+
+//     try {
+//       await db.insert(answers).values(geminiAnswers);
+
+//       console.log("Answers Seeded successfully !!");
+//     } catch (error) {
+//       console.log("Error while entering answers !");
+//     }
+//   });
+// });
 
 // FREE GEMINI MODELS
 
