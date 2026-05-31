@@ -1,12 +1,10 @@
-import { Button } from "@/components/ui/button";
+import HomeHolder from "@/home/home-holder";
 import { HydrateClient } from "@/trpc/server";
-import HeroSection from "@/ui/hero-section/hero-section";
-import Link from "next/link";
 
 const Page = () => {
   return (
     <HydrateClient>
-      <HeroSection />
+      <HomeHolder />
     </HydrateClient>
   );
 };
