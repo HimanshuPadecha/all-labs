@@ -10,6 +10,7 @@ export interface Practical {
   
   export interface Subject {
     id: string;
+    url: string;
     name: string;
     iconName: string; // Used to dynamic render Lucide icons
     description: string;

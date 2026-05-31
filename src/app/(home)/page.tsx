@@ -1,4 +1,4 @@
-import HomeHolder from "@/home/home-holder";
+import HomeHolder from "@/ui/home/home-holder";
 import { HydrateClient } from "@/trpc/server";
 
 const Page = () => {

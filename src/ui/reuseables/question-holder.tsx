@@ -17,9 +17,10 @@ import {
 
 interface pageProps {
   question: seedRouter["getQuestionsAnswers"][number];
+  variant: "admin" | "client";
 }
 
-const QuestionHolder = ({ question }: pageProps) => {
+const QuestionHolder = ({ question, variant }: pageProps) => {
   const { question: que, answer } = question;
   const [showQuestionEditButton, setShowQuestionEditButton] = useState(false);
   const [showAnswerEditButton, setShowAnswerEditButton] = useState(false);
@@ -189,7 +190,7 @@ const QuestionHolder = ({ question }: pageProps) => {
               : "right-[35px] opacity-0",
           )}
         >
-          <Button
+          {variant === "admin" && <Button
             variant={editQuestion ? "destructive" : "ghost"}
             className={cn("text-xs cursor-pointer")}
             onClick={editHandler}
@@ -205,7 +206,7 @@ const QuestionHolder = ({ question }: pageProps) => {
             ) : (
               "EDIT"
             )}
-          </Button>
+          </Button>}
           {editQuestion && (
             <Button
               variant={"secondary"}
@@ -252,115 +253,117 @@ const QuestionHolder = ({ question }: pageProps) => {
           className="resize-none overflow-y-auto py-5"
           onChange={(e) => setAnswerState(e.target.value)}
         />
-        <div
-          className={cn(
-            `absolute right-2 flex gap-3 transition-all ease-in-out`,
-            showAnswerEditButton
-              ? "bottom-[10px] opacity-100"
-              : "bottom-[-35px] opacity-0",
-          )}
-        >
-          <Button
-            variant={editAnswer ? "destructive" : "secondary"}
-            className="cursor-pointer text-xs"
-            onClick={editAnswerHandler}
-            disabled={editMutationAnswer.isPending}
-          >
-            {editAnswer ? (
-              <span className="flex items-center justify-center gap-1">
-                {editMutationAnswer.isPending && (
-                  <Loader2Icon className="animate-spin" />
-                )}{" "}
-                CONFIRM CHANGES
-              </span>
-            ) : (
-              "EDIT"
+        {variant === "admin" && (
+          <div
+            className={cn(
+              `absolute right-2 flex gap-3 transition-all ease-in-out`,
+              showAnswerEditButton
+                ? "bottom-[10px] opacity-100"
+                : "bottom-[-35px] opacity-0",
             )}
-          </Button>
-          {!editAnswer ? (
-            <Button
-              variant={"destructive"}
-              className="cursor-pointer text-xs"
-              onClick={() => setOpen(true)}
-            >
-              DELETE QUESTION
-            </Button>
-          ) : (
-            <Button
-              className="text-xs"
-              onClick={() => {
-                setEditAnswer(false);
-                setAnswerState(answer?.answerText || answerState);
-              }}
-              variant={"secondary"}
-            >
-              CANCEL CHANGES
-            </Button>
-          )}
-        </div>
-      </div>
-
-      {answer && answer.outputText && (
-      <div className="relative">
-        <span>Output : </span>
-        <Textarea
-          value={outputText || ""}
-          className="resize-none overflow-y-auto"
-          readOnly={!editOutput}
-          onChange={(e) => setOutputText(e.target.value)}
-        />
-        {!editOutput && (
-          <Button
-            className="absolute right-2 bottom-2 text-xs cursor-pointer"
-            variant={"secondary"}
-            onClick={() => setEditOutput(true)}
           >
-            EDIT
-          </Button>
-        )}
-
-        {editOutput && (
-          <div className="flex gap-3 absolute right-2 bottom-2">
             <Button
-              className="text-xs cursor-pointer"
-              variant={"secondary"}
-              onClick={() => {
-                setEditOutput(false);
-                setOutputText(answer?.outputText || "");
-              }}
+              variant={editAnswer ? "destructive" : "secondary"}
+              className="cursor-pointer text-xs"
+              onClick={editAnswerHandler}
+              disabled={editMutationAnswer.isPending}
             >
-              CANCLE CHANGES
+              {editAnswer ? (
+                <span className="flex items-center justify-center gap-1">
+                  {editMutationAnswer.isPending && (
+                    <Loader2Icon className="animate-spin" />
+                  )}{" "}
+                  CONFIRM CHANGES
+                </span>
+              ) : (
+                "EDIT"
+              )}
             </Button>
-
-            <Button
-              className="text-xs cursor-pointer"
-              variant={"destructive"}
-              onClick={() => {
-                if (answer?.outputText === outputText) {
-                  toast.warning("Chnage something to edit the output.", {
-                    position: "top-center",
-                  });
-                  return;
-                }
-
-                if(outputText === null) return
-
-                editOutputMutation.mutate({
-                  answerId: answer.id,
-                  newOutputText: outputText,
-                });
-              }}
-              disabled={editOutputMutation.isPending}
-            >
-              {editOutputMutation.isPending && (
-                <Loader2Icon className="animate-spin size-5" />
-              )}{" "}
-              CONFIRM CHANGES
-            </Button>
+            {!editAnswer ? (
+              <Button
+                variant={"destructive"}
+                className="cursor-pointer text-xs"
+                onClick={() => setOpen(true)}
+              >
+                DELETE QUESTION
+              </Button>
+            ) : (
+              <Button
+                className="text-xs"
+                onClick={() => {
+                  setEditAnswer(false);
+                  setAnswerState(answer?.answerText || answerState);
+                }}
+                variant={"secondary"}
+              >
+                CANCEL CHANGES
+              </Button>
+            )}
           </div>
         )}
       </div>
-       )} 
+
+      {answer && answer.outputText && (
+        <div className="relative">
+          <span>Output : </span>
+          <Textarea
+            value={outputText || ""}
+            className="resize-none overflow-y-auto"
+            readOnly={!editOutput}
+            onChange={(e) => setOutputText(e.target.value)}
+          />
+          {!editOutput && variant === "admin" && (
+            <Button
+              className="absolute right-2 bottom-2 text-xs cursor-pointer"
+              variant={"secondary"}
+              onClick={() => setEditOutput(true)}
+            >
+              EDIT
+            </Button>
+          )}
+
+          {editOutput && variant === "admin" && (
+            <div className="flex gap-3 absolute right-2 bottom-2">
+              <Button
+                className="text-xs cursor-pointer"
+                variant={"secondary"}
+                onClick={() => {
+                  setEditOutput(false);
+                  setOutputText(answer?.outputText || "");
+                }}
+              >
+                CANCLE CHANGES
+              </Button>
+
+              <Button
+                className="text-xs cursor-pointer"
+                variant={"destructive"}
+                onClick={() => {
+                  if (answer?.outputText === outputText) {
+                    toast.warning("Chnage something to edit the output.", {
+                      position: "top-center",
+                    });
+                    return;
+                  }
+
+                  if (outputText === null) return;
+
+                  editOutputMutation.mutate({
+                    answerId: answer.id,
+                    newOutputText: outputText,
+                  });
+                }}
+                disabled={editOutputMutation.isPending}
+              >
+                {editOutputMutation.isPending && (
+                  <Loader2Icon className="animate-spin size-5" />
+                )}{" "}
+                CONFIRM CHANGES
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -9,20 +9,14 @@ import {
   Sparkles, 
   Play, 
   BookOpen,
-  Coffee,
   Binary,
   Database,
   Globe,
-  Cpu,
-  HelpCircle,
-  FileText,
-  Zap,
-  Users,
   Code,
   ArrowRight
 } from 'lucide-react';
 import { LAB_SUBJECTS } from '@/data/lab-data';
-import { Subject, Practical } from '@/types/ui-types';
+import Link from 'next/link';
 
 interface HeroProps {
   onBrowseClick: () => void;
@@ -152,6 +146,7 @@ export default function Hero({ onBrowseClick, onExploreClick, selectedSubjectId,
           transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
+          <Link href={"/labs/78c99b00-c8ba-4264-8a17-2180f186f161"}>
           <motion.button 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -161,14 +156,7 @@ export default function Hero({ onBrowseClick, onExploreClick, selectedSubjectId,
             Browse Labs
             <ArrowRight className="w-4 h-4" />
           </motion.button>
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={onExploreClick}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent hover:bg-zinc-900 text-zinc-300 border border-zinc-800 hover:border-zinc-700 px-8 py-3.5 rounded-none text-xs font-bold uppercase tracking-widest transition-all duration-200 cursor-pointer active:scale-95"
-          >
-            Explore Resources
-          </motion.button>
+          </Link>
           <motion.a 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

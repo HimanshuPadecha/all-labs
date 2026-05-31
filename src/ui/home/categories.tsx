@@ -3,6 +3,7 @@ import React, { ForwardedRef } from 'react';
 import { motion } from 'motion/react';
 import { Binary, Database, Globe, Code, ArrowRight } from 'lucide-react';
 import { LAB_SUBJECTS } from '@/data/lab-data';
+import Link from 'next/link';
 
 interface CategoriesProps {
   onSelectCategory: (id: string) => void;
@@ -80,13 +81,14 @@ export const Categories = React.forwardRef(function Categories(
               </div>
 
               <div className="mt-8 pt-6 border-t border-zinc-900/60">
+                <Link href={sub.url}>
                 <button
-                  onClick={() => onSelectCategory(sub.id)}
                   className="w-full bg-zinc-900 hover:bg-white text-zinc-300 hover:text-black py-3 px-4 text-xs font-bold uppercase tracking-widest transition-all duration-200 cursor-pointer flex items-center justify-center gap-1.5 rounded-none border border-zinc-850"
                 >
                   <span>LOAD SUBJECT MANUAL</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
+                </Link>
               </div>
             </motion.div>
           ))}

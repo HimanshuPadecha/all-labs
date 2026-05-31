@@ -10,7 +10,7 @@ const Page = async ({ params }: pageProps) => {
   trpc.seed.getQuestionsAnswers.prefetch({ labId });
   return (
     <HydrateClient>
-      <CheckSeeded labId={labId} variant="admin"/>
+      <CheckSeeded labId={labId} variant="client" />
     </HydrateClient>
   );
 };

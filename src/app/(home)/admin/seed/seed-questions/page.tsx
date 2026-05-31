@@ -3,10 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import SelectLabs from "@/reuseables/select-lab";
-import SelectSubjects from "@/reuseables/select-subjects";
 import { seedRouter } from "@/trpc-procedures-types/types";
 import { trpc } from "@/trpc/client";
+import SelectLabs from "@/ui/reuseables/select-lab";
+import SelectSubjects from "@/ui/reuseables/select-subjects";
 import { useUploadThing } from "@/utils/uploadthing";
 import { Loader2Icon } from "lucide-react";
 import Link from "next/link";
@@ -84,8 +84,20 @@ const Page = () => {
   };
 
   return (
-    <ErrorBoundary fallback={<p className="text-destructive text-center p-4">Something went wrong.</p>}>
-      <Suspense fallback={<div className="flex justify-center p-8"><Loader2Icon className="animate-spin text-muted-foreground" /></div>}>
+    <ErrorBoundary
+      fallback={
+        <p className="text-destructive text-center p-4">
+          Something went wrong.
+        </p>
+      }
+    >
+      <Suspense
+        fallback={
+          <div className="flex justify-center p-8">
+            <Loader2Icon className="animate-spin text-muted-foreground" />
+          </div>
+        }
+      >
         <Card className="max-w-4xl mx-auto w-full shadow-sm">
           <CardTitle className="p-6 pb-2">
             <div className="w-full flex items-center justify-between border-b pb-4">
@@ -98,7 +110,6 @@ const Page = () => {
             <div className="grid md:grid-cols-5 gap-8">
               {/* Left Column: Form Controls */}
               <div className="md:col-span-3 flex flex-col gap-6">
-                
                 {/* Selectors */}
                 <div className="flex flex-col gap-4 bg-muted/30 p-5 rounded-xl border">
                   <div className="flex items-center gap-3">
@@ -145,10 +156,7 @@ const Page = () => {
                   <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                     <div className="grid grid-cols-2 gap-3">
                       <Link href={`/admin/seed/check-seeded/${labId}`}>
-                        <Button
-                          variant="secondary"
-                          className="w-full"
-                        >
+                        <Button variant="secondary" className="w-full">
                           Check Seeded
                         </Button>
                       </Link>
@@ -170,15 +178,15 @@ const Page = () => {
                         <label className="text-sm font-medium mb-1.5 block">
                           Upload Lab Questions Image
                         </label>
-                        <Input 
-                          type="file" 
+                        <Input
+                          type="file"
                           accept="image/*"
-                          onChange={handleFileChange} 
+                          onChange={handleFileChange}
                           className="cursor-pointer bg-background"
                         />
                       </div>
-                      
-                      <Button 
+
+                      <Button
                         onClick={handleGenerateQuestions}
                         className="w-full shadow-sm"
                         disabled={!file || isUploading}
@@ -193,9 +201,10 @@ const Page = () => {
                           "Generate Questions"
                         )}
                       </Button>
-                      
+
                       <p className="text-xs text-muted-foreground text-center">
-                        ⚡ Select an image and click the button above to start the process.
+                        ⚡ Select an image and click the button above to start
+                        the process.
                       </p>
                     </div>
                   </div>
@@ -214,28 +223,34 @@ const Page = () => {
                   </h4>
                   <div className="flex flex-col text-sm text-muted-foreground gap-4">
                     <div className="flex gap-2">
-                      <span className="text-foreground font-medium">1.</span> 
+                      <span className="text-foreground font-medium">1.</span>
                       <span>📘 Select the target subject.</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-foreground font-medium">2.</span> 
+                      <span className="text-foreground font-medium">2.</span>
                       <span>🧫 Choose the specific lab for that subject.</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-foreground font-medium">3.</span> 
-                      <span>🖼️ Upload an image of the lab questions and click "Generate Questions" to seed both questions and answers.</span>
+                      <span className="text-foreground font-medium">3.</span>
+                      <span>
+                        🖼️ Upload an image of the lab questions and click
+                        "Generate Questions" to seed both questions and answers.
+                      </span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-foreground font-medium">4.</span> 
-                      <span>🧩 Use "Seed Answers Only" if questions are already present.</span>
+                      <span className="text-foreground font-medium">4.</span>
+                      <span>
+                        🧩 Use "Seed Answers Only" if questions are already
+                        present.
+                      </span>
                     </div>
                     <div className="mt-2 p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-medium leading-relaxed">
-                      📌 Note: You don't need to upload all questions at once. Multiple uploads are supported and will append to the lab.
+                      📌 Note: You don't need to upload all questions at once.
+                      Multiple uploads are supported and will append to the lab.
                     </div>
                   </div>
                 </div>
               </div>
-
             </div>
           </CardContent>
         </Card>

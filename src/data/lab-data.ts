@@ -4,6 +4,7 @@ export const LAB_SUBJECTS: Subject[] = [
   {
     id: 'python',
     name: 'Python',
+    url : "/labs/78c99b00-c8ba-4264-8a17-2180f186f161",
     iconName: 'Binary',
     description: 'Data ingestion, analysis, scraping, NumPy manipulation, Pandas dataframes, and Matplotlib plotting.',
     themeColor: '#FFFFFF', // Monochrome White
@@ -73,6 +74,7 @@ print(f"Speedup multiplier: {native_duration / vect_duration:.1f}x")`,
   },
   {
     id: 'dbms',
+    url : "/labs/8679dd9e-c632-468b-94c4-fe687f65cc2b",
     name: 'Database Management (DBMS)',
     iconName: 'Database',
     description: 'Relational algebra, complex SQL queries, Joins, subqueries, PL/SQL triggers, procedures, and ER design.',
@@ -131,6 +133,7 @@ END;
   },
   {
     id: 'project-1',
+    url : "/labs/0fad0337-1d54-4c81-b621-c3fbc513b759",
     name: 'Project - 1 (HTML, CSS, JS, PHP)',
     iconName: 'Globe',
     description: 'Front-end layout construction, native form validation, asynchronous state handling, and PHP backend controller scripts.',

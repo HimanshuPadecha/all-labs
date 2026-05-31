@@ -7,7 +7,7 @@ import { client } from "@/utils/upstash";
 import { SubjectWithLabs } from "@/trpc-procedures-types/types";
 
 export const seedRouter = createTRPCRouter({
-  getLabId: protectedProcedure
+  getLabId: baseProcedure
     .input(
       z.object({
         subjectName: z.string(),
@@ -41,7 +41,7 @@ export const seedRouter = createTRPCRouter({
     return allSubs;
   }),
 
-  getValidLabIds: protectedProcedure
+  getValidLabIds: baseProcedure
     .input(
       z.object({
         subjectId: z.string().uuid(),
@@ -83,8 +83,7 @@ export const seedRouter = createTRPCRouter({
 
       return { success: true };
     }),
-
-  getQuestionsAnswers: protectedProcedure
+  getQuestionsAnswers: baseProcedure
     .input(
       z.object({
         labId: z.string().uuid(),
