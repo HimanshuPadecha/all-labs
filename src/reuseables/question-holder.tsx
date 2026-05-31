@@ -29,6 +29,8 @@ const QuestionHolder = ({ question }: pageProps) => {
     String(que.questionNo),
   );
   const [editAnswer, setEditAnswer] = useState(false);
+  const [outputText, setOutputText] = useState(answer?.outputText || null);
+  const [editOutput, setEditOutput] = useState(false);
 
   const [isAnswerCopied, setIsAnswerCopied] = useState(false);
 
@@ -86,6 +88,19 @@ const QuestionHolder = ({ question }: pageProps) => {
   };
 
   const utils = trpc.useUtils();
+
+  const editOutputMutation = trpc.admin.editOutput.useMutation({
+    onSuccess: () => {
+      utils.seed.getQuestionsAnswers.invalidate({ labId: question.lab.id });
+      toast.success("Output Edited successfully !!", {
+        position: "top-center",
+      });
+      setEditOutput(false);
+    },
+    onError: (error) => {
+      toast.error(error.message, { position: "top-center" });
+    },
+  });
 
   const editMutation = trpc.admin.EditQuestion.useMutation({
     onSuccess: () => {
@@ -284,6 +299,68 @@ const QuestionHolder = ({ question }: pageProps) => {
           )}
         </div>
       </div>
+
+      {answer && answer.outputText && (
+      <div className="relative">
+        <span>Output : </span>
+        <Textarea
+          value={outputText || ""}
+          className="resize-none overflow-y-auto"
+          readOnly={!editOutput}
+          onChange={(e) => setOutputText(e.target.value)}
+        />
+        {!editOutput && (
+          <Button
+            className="absolute right-2 bottom-2 text-xs cursor-pointer"
+            variant={"secondary"}
+            onClick={() => setEditOutput(true)}
+          >
+            EDIT
+          </Button>
+        )}
+
+        {editOutput && (
+          <div className="flex gap-3 absolute right-2 bottom-2">
+            <Button
+              className="text-xs cursor-pointer"
+              variant={"secondary"}
+              onClick={() => {
+                setEditOutput(false);
+                setOutputText(answer?.outputText || "");
+              }}
+            >
+              CANCLE CHANGES
+            </Button>
+
+            <Button
+              className="text-xs cursor-pointer"
+              variant={"destructive"}
+              onClick={() => {
+                if (answer?.outputText === outputText) {
+                  toast.warning("Chnage something to edit the output.", {
+                    position: "top-center",
+                  });
+                  return;
+                }
+
+                if(outputText === null) return
+
+                editOutputMutation.mutate({
+                  answerId: answer.id,
+                  newOutputText: outputText,
+                });
+              }}
+              disabled={editOutputMutation.isPending}
+            >
+              {editOutputMutation.isPending && (
+                <Loader2Icon className="animate-spin size-5" />
+              )}{" "}
+              CONFIRM CHANGES
+            </Button>
+          </div>
+        )}
+      </div>
+       )} 
     </div>
   );
 };

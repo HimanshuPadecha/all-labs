@@ -41,6 +41,7 @@ SCHEMA RULES
 Return an array of objects in this structure:
 - questionId: string (must exactly match the input)
 - answerText: string
+- outputText : string (If applicable)
 
 TECHNICAL CONTENT RULES
 SQL:

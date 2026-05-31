@@ -46,6 +46,7 @@ export const answers = pgTable("answers", {
     onDelete: "cascade",
   }).notNull(),
   answerText: text("answer_text").notNull(),
+  outputText: text("output_text"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

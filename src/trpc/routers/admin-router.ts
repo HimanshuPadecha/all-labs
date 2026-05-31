@@ -118,6 +118,34 @@ export const adminRouter = createTRPCRouter({
         .where(eq(questions.labId, labId))
         .returning();
 
-        return deletedQuestions;
+      return deletedQuestions;
+    }),
+
+  editOutput: protectedProcedure
+    .input(
+      z.object({
+        answerId: z.string().uuid(),
+        newOutputText: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { answerId, newOutputText } = input;
+
+      const [answer] = await db
+        .select()
+        .from(answers)
+        .where(eq(answers.id, answerId));
+
+      if (!answer) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      const [updated] = await db
+        .update(answers)
+        .set({ outputText: newOutputText })
+        .where(eq(answers.id, answerId))
+        .returning();
+
+      return updated;
     }),
 });
