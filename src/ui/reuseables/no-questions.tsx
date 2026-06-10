@@ -1,9 +1,13 @@
-import React from 'react';
+import React from "react";
 import { FileQuestion, Plus } from "lucide-react";
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-const NoQuestions = () => {
+interface pageProps {
+  variant: "admin" | "client";
+}
+
+const NoQuestions = ({ variant }: pageProps) => {
   return (
     <div className="flex flex-col items-center justify-center w-full py-16 px-6 text-center border-2 border-dashed border-muted/60 rounded-2xl bg-muted/10 animate-in fade-in duration-500">
       <div className="bg-muted/30 p-4 rounded-full mb-5 ring-1 ring-muted/50 shadow-sm">
@@ -13,17 +17,17 @@ const NoQuestions = () => {
         No Questions Available
       </h3>
       <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed mb-6">
-        It looks like there are no questions seeded for this lab yet. 
-        Please generate or upload some questions to get started.
+        It looks like there are no questions seeded for this lab yet. Please
+        generate or upload some questions to get started.
       </p>
-      <Link href="/admin/seed/seed-questions">
+      {variant === "admin" && <Link href="/admin/seed/seed-questions">
         <Button>
           <Plus className="w-4 h-4 mr-2" />
           Seed Questions
         </Button>
-      </Link>
+      </Link>}
     </div>
-  )
-}
+  );
+};
 
 export default NoQuestions;

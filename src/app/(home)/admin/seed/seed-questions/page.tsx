@@ -47,6 +47,17 @@ const Page = () => {
     },
   });
 
+  const generateOutputs = trpc.seed.outputSeed.useMutation({
+    onSuccess: () => {
+      toast.success("The Outputs generation started in background !!", {
+        position: "top-center",
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message, { position: "top-center" });
+    },
+  });
+
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     onClientUploadComplete: () => {
       toast.success(
@@ -170,6 +181,17 @@ const Page = () => {
                           <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         Seed Answers Only
+                      </Button>
+                      <Button
+                        onClick={() => generateOutputs.mutate({ labId })}
+                        variant="outline"
+                        className="w-full"
+                        disabled={generateOutputs.isPending}
+                      >
+                        {generateOutputs.isPending && (
+                          <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
+                        )}
+                        Seed Outputs Only
                       </Button>
                     </div>
 

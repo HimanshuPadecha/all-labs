@@ -64,7 +64,7 @@ export const { POST } = serve(async (context) => {
       ].join("\n");
 
       const geminiResponse = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
+        model: "gemini-3.5-flash",
         contents: [
           {
             parts: [
@@ -130,3 +130,6 @@ export const { POST } = serve(async (context) => {
 // gemini-2.5-pro
 // gemini-2.5-flash
 // gemini-2.5-flash-lite
+
+
+// default one : gemini-3.5-flash

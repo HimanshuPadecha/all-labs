@@ -17,7 +17,7 @@ const CheckSeeded = ({ labId, variant }: pageProps) => {
   const [questions] = trpc.seed.getQuestionsAnswers.useSuspenseQuery({ labId });
 
   if (questions.length === 0) {
-    return <NoQuestions />;
+    return <NoQuestions variant={variant} />;
   }
   const { name: subjectName } = questions[0]?.subject;
   const { name: labName, labNo } = questions[0]?.lab;

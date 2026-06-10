@@ -3,7 +3,7 @@ import z from "zod";
 export const formSchema = z.object({
   questionNo: z.string().nonempty("INVALID QUESTION NUMBER"),
   questionText: z.string().nonempty("QUESTION TOO SHORT"),
-  answerText: z.string().nonempty("ANSWER TOO SHORT"),
+  answerText: z.string().optional(),
   labId: z.string().uuid(),
 });
 

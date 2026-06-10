@@ -83,6 +83,25 @@ export const seedRouter = createTRPCRouter({
 
       return { success: true };
     }),
+  outputSeed: protectedProcedure
+    .input(
+      z.object({
+        labId: z.string().uuid(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { labId } = input;
+
+      await client.trigger({
+        url: `${process.env.UPSTASH_WORKFLOW_URL}/api/workflow/generate-outputs`,
+        retries: 2,
+        body: {
+          labId,
+        },
+      });
+
+      return { success: true };
+    }),
   getQuestionsAnswers: baseProcedure
     .input(
       z.object({

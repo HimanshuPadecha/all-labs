@@ -111,7 +111,7 @@ For each question found, create an object with:
     async () => {
       try {
         const geminiResponse = await ai.models.generateContent({
-          model: "gemini-3-flash-preview",
+          model: "gemini-3.5-flash",
           contents: [
             {
               parts: [

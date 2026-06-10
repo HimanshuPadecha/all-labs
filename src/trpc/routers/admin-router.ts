@@ -97,12 +97,14 @@ export const adminRouter = createTRPCRouter({
         throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
       }
 
-      const [newAnswer] = await db
-        .insert(answers)
-        .values({ questionId: newQuestion.id, answerText })
-        .returning();
+      if(answerText){
+        const [newAnswer] = await db
+          .insert(answers)
+          .values({ questionId: newQuestion.id, answerText })
+          .returning();
+      }
 
-      return newAnswer;
+      return newQuestion;
     }),
   deleteAllLabQuestion: protectedProcedure
     .input(

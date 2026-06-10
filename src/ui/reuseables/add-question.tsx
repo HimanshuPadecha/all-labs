@@ -130,6 +130,7 @@ const AddQuestion = ({ labId }: pageProps) => {
                   <FieldLabel>Answer</FieldLabel>
                   <Textarea
                     {...field}
+                    value={field.value ?? ""}
                     placeholder="ex. System.out.println('Hello');"
                     className="resize-none overflow-y-auto"
                   />
