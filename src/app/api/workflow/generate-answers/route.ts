@@ -64,7 +64,7 @@ export const { POST } = serve(async (context) => {
       ].join("\n");
 
       const geminiResponse = await ai.models.generateContent({
-        model: "gemini-3.5-flash",
+        model: "gemini-3-flash-preview",
         contents: [
           {
             parts: [

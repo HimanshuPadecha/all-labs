@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { seedRouter } from "@/trpc-procedures-types/types";
 import { trpc } from "@/trpc/client";
 import { CircleCheckIcon, CopyIcon, Loader2Icon } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "sonner";
 import ReuseableDialog from "./reuseable-dialog";
 import { isNotNumber } from "@/utils/utils";
@@ -30,10 +30,11 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
     String(que.questionNo),
   );
   const [editAnswer, setEditAnswer] = useState(false);
-  const [outputText, setOutputText] = useState(answer?.outputText || null);
+  const [outputText, setOutputText] = useState(answer?.outputText || "");
   const [editOutput, setEditOutput] = useState(false);
 
   const [isAnswerCopied, setIsAnswerCopied] = useState(false);
+  const outputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(answer?.answerText || "");
@@ -190,23 +191,25 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               : "right-[35px] opacity-0",
           )}
         >
-          {variant === "admin" && <Button
-            variant={editQuestion ? "destructive" : "ghost"}
-            className={cn("text-xs cursor-pointer")}
-            onClick={editHandler}
-            disabled={editMutation.isPending}
-          >
-            {editQuestion ? (
-              <span className="flex items-center justify-center gap-1">
-                {editMutation.isPending && (
-                  <Loader2Icon className="animate-spin" />
-                )}{" "}
-                CONFIRM CHANGES
-              </span>
-            ) : (
-              "EDIT"
-            )}
-          </Button>}
+          {variant === "admin" && (
+            <Button
+              variant={editQuestion ? "destructive" : "ghost"}
+              className={cn("text-xs cursor-pointer")}
+              onClick={editHandler}
+              disabled={editMutation.isPending}
+            >
+              {editQuestion ? (
+                <span className="flex items-center justify-center gap-1">
+                  {editMutation.isPending && (
+                    <Loader2Icon className="animate-spin" />
+                  )}{" "}
+                  CONFIRM CHANGES
+                </span>
+              ) : (
+                "EDIT"
+              )}
+            </Button>
+          )}
           {editQuestion && (
             <Button
               variant={"secondary"}
@@ -299,24 +302,39 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
                 CANCEL CHANGES
               </Button>
             )}
+            {variant === "admin" && !answer?.outputText && (
+              <Button
+                className="text-xs"
+                onClick={() => {
+                  setEditOutput(true);
+                  outputRef.current?.focus();
+                }}
+              >
+                ADD OUTPUT
+              </Button>
+            )}
           </div>
         )}
       </div>
 
-      {answer && answer.outputText && (
+      {answer && (
         <div className="relative">
           <span>Output : </span>
           <Textarea
-            value={outputText || ""}
+            value={outputText === "" && !editOutput ? "N/A" : outputText}
             className="resize-none overflow-y-auto"
             readOnly={!editOutput}
             onChange={(e) => setOutputText(e.target.value)}
+            ref={outputRef}
           />
           {!editOutput && variant === "admin" && (
             <Button
               className="absolute right-2 bottom-2 text-xs cursor-pointer"
               variant={"secondary"}
-              onClick={() => setEditOutput(true)}
+              onClick={() => {
+                setEditOutput(true);
+                outputRef.current?.focus();
+              }}
             >
               EDIT
             </Button>
