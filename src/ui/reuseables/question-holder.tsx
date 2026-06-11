@@ -155,14 +155,13 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
 
   return (
     <motion.div 
-      className="w-full flex flex-col gap-4 p-5 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow duration-300"
+      className="w-full flex flex-col gap-3 md:gap-4 p-3 md:p-5 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow duration-300"
       layout
     >
       <ReuseableDialog
         open={open}
         setOpen={setOpen}
-        description="This action cannot be undone. This will permanently delete this
-            question from everywhere."
+        description="This action cannot be undone. This will permanently delete this question from everywhere."
         isLoading={deleteQuestion.isPending}
         onClick={dialogOnClick}
       />
@@ -179,17 +178,17 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="w-full flex items-center justify-start gap-3 pr-40"
+              className="w-full flex items-center justify-start gap-2 md:gap-3 pr-24 md:pr-40"
             >
               <Input
                 value={questionNoState}
                 onChange={(e) => setQuestionNoState(e.target.value)}
-                className="w-16 shadow-sm"
+                className="w-14 md:w-16 shadow-sm"
               />
               <Textarea
                 value={questionState}
                 onChange={(e) => setQuestionState(e.target.value)}
-                className="resize-none overflow-y-auto shadow-sm"
+                className="resize-none overflow-y-auto shadow-sm min-h-[60px]"
               />
             </motion.div>
           ) : (
@@ -198,7 +197,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="whitespace-pre-wrap break-all overflow-hidden max-w-full text-sm md:text-base pr-12 text-foreground/90 leading-relaxed"
+              className="whitespace-pre-wrap wrap-break-words overflow-hidden w-full text-sm md:text-base pr-8 md:pr-12 text-foreground/90 leading-relaxed"
             >
               <span className="font-bold text-lg md:text-xl text-primary">{que.questionNo}</span>.{" "}
               {que.questionText}
@@ -213,16 +212,16 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="absolute right-0 flex gap-2 z-10 pl-4 bg-linear-to-l from-card via-card to-transparent"
+              className="absolute right-0 flex flex-col md:flex-row gap-2 z-10 pl-2 bg-linear-to-l from-card via-card to-transparent"
             >
               <Button
                 variant={editQuestion ? "destructive" : "secondary"}
-                className={cn("text-xs cursor-pointer shadow-sm")}
+                className={cn("text-[10px] md:text-xs cursor-pointer shadow-sm h-7 md:h-9 px-2 md:px-4")}
                 onClick={editHandler}
                 disabled={editMutation.isPending}
               >
                 {editQuestion ? (
-                  <span className="flex items-center justify-center gap-2">
+                  <span className="flex items-center justify-center gap-1 md:gap-2">
                     {editMutation.isPending && (
                       <Loader2Icon className="animate-spin size-3" />
                     )}{" "}
@@ -236,7 +235,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
                 <Button
                   variant={"ghost"}
                   onClick={() => setEditQuestion(false)}
-                  className="text-xs cursor-pointer"
+                  className="text-[10px] md:text-xs cursor-pointer h-7 md:h-9 px-2 md:px-4"
                 >
                   CANCEL
                 </Button>
@@ -247,7 +246,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
       </div>
 
       <div
-        className="flex items-center justify-center relative rounded-xl overflow-hidden border border-border/50 bg-muted/30"
+        className="w-full relative rounded-xl overflow-hidden border border-border/50 bg-muted/30"
         onMouseEnter={() => setShowAnswerEditButton(true)}
         onMouseLeave={() => setShowAnswerEditButton(false)}
       >
@@ -258,12 +257,12 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="absolute right-3 top-3 z-10"
+              className="absolute right-2 top-2 z-10"
             >
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="outline" size="icon" className="h-8 w-8 bg-background/80 backdrop-blur-md hover:bg-background shadow-sm" onClick={handleCopy}>
-                    {isAnswerCopied ? <CircleCheckIcon className="h-4 w-4 text-emerald-500" /> : <CopyIcon className="h-4 w-4 text-muted-foreground" />}
+                  <Button variant="outline" size="icon" className="h-7 w-7 md:h-8 md:w-8 bg-background/80 backdrop-blur-md hover:bg-background shadow-sm" onClick={handleCopy}>
+                    {isAnswerCopied ? <CircleCheckIcon className="h-3 w-3 md:h-4 md:w-4 text-emerald-500" /> : <CopyIcon className="h-3 w-3 md:h-4 md:w-4 text-muted-foreground" />}
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -278,7 +277,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
           value={answerState}
           readOnly={!editAnswer}
           className={cn(
-            "w-full min-w-0 resize-none overflow-auto break-all py-5 px-5 text-sm font-mono bg-transparent border-none focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300",
+            "w-full min-w-0 min-h-[120px] resize-y wrap-break-words py-4 px-3 md:px-5 text-xs md:text-sm font-mono bg-transparent border-none focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300",
             editAnswer && "bg-background shadow-inner"
           )}
           onChange={(e) => setAnswerState(e.target.value)}
@@ -292,16 +291,16 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="absolute right-3 bottom-3 flex gap-2 z-10"
+              className="absolute right-2 bottom-2 flex flex-wrap justify-end gap-2 z-10"
             >
               <Button
                 variant={editAnswer ? "destructive" : "secondary"}
-                className="cursor-pointer text-xs shadow-sm"
+                className="cursor-pointer text-[10px] md:text-xs shadow-sm h-7 md:h-9"
                 onClick={editAnswerHandler}
                 disabled={editMutationAnswer.isPending}
               >
                 {editAnswer ? (
-                  <span className="flex items-center justify-center gap-2">
+                  <span className="flex items-center justify-center gap-1 md:gap-2">
                     {editMutationAnswer.isPending && (
                       <Loader2Icon className="animate-spin size-3" />
                     )}{" "}
@@ -314,14 +313,14 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               {!editAnswer ? (
                 <Button
                   variant={"destructive"}
-                  className="cursor-pointer text-xs shadow-sm"
+                  className="cursor-pointer text-[10px] md:text-xs shadow-sm h-7 md:h-9"
                   onClick={() => setOpen(true)}
                 >
                   DELETE
                 </Button>
               ) : (
                 <Button
-                  className="text-xs shadow-sm"
+                  className="text-[10px] md:text-xs shadow-sm h-7 md:h-9"
                   onClick={() => {
                     setEditAnswer(false);
                     setAnswerState(answer?.answerText || answerState);
@@ -333,7 +332,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               )}
               {!answer?.outputText && (
                 <Button
-                  className="text-xs shadow-sm"
+                  className="text-[10px] md:text-xs shadow-sm h-7 md:h-9"
                   variant="outline"
                   onClick={() => {
                     setEditOutput(true);
@@ -351,17 +350,17 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
       {answer && (
         <motion.div 
           layout
-          className="relative mt-1"
+          className="relative mt-1 w-full"
           onMouseEnter={() => setShowOutputEditButton(true)}
           onMouseLeave={() => setShowOutputEditButton(false)}
         >
-          <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 block ml-1">Output</span>
-          <div className="relative rounded-xl overflow-hidden border border-border/50 bg-muted/20">
+          <span className="text-[10px] md:text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 block ml-1">Output</span>
+          <div className="relative w-full rounded-xl overflow-hidden border border-border/50 bg-muted/20">
             <Textarea
               value={outputText === "" && !editOutput ? "N/A" : outputText}
               className={cn(
-                "resize-none overflow-y-auto text-sm font-mono bg-transparent border-none py-4 px-5 focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300 text-muted-foreground",
-                editOutput && "bg-background shadow-inner min-h-[100px] text-foreground"
+                "w-full resize-y wrap-break-words text-xs md:text-sm font-mono bg-transparent border-none py-3 px-3 md:px-5 focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300 text-muted-foreground",
+                editOutput ? "bg-background shadow-inner min-h-[100px] text-foreground" : "min-h-[60px]"
               )}
               readOnly={!editOutput}
               onChange={(e) => setOutputText(e.target.value)}
@@ -375,11 +374,11 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 15 }}
                   transition={{ type: "spring", stiffness: 300, damping: 24 }}
-                  className="absolute right-3 bottom-3 flex gap-2 z-10"
+                  className="absolute right-2 bottom-2 flex flex-wrap justify-end gap-2 z-10"
                 >
                   {!editOutput ? (
                     <Button
-                      className="text-xs cursor-pointer shadow-sm"
+                      className="text-[10px] md:text-xs cursor-pointer shadow-sm h-7 md:h-9"
                       variant={"secondary"}
                       onClick={() => {
                         setEditOutput(true);
@@ -391,7 +390,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
                   ) : (
                     <>
                       <Button
-                        className="text-xs cursor-pointer shadow-sm"
+                        className="text-[10px] md:text-xs cursor-pointer shadow-sm h-7 md:h-9"
                         variant={"destructive"}
                         onClick={() => {
                           if (answer?.outputText === outputText) {
@@ -411,12 +410,12 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
                         disabled={editOutputMutation.isPending}
                       >
                         {editOutputMutation.isPending ? (
-                          <Loader2Icon className="animate-spin size-3 mr-2" />
+                          <Loader2Icon className="animate-spin size-3 mr-1" />
                         ) : null}
                         CONFIRM
                       </Button>
                       <Button
-                        className="text-xs cursor-pointer shadow-sm"
+                        className="text-[10px] md:text-xs cursor-pointer shadow-sm h-7 md:h-9"
                         variant={"ghost"}
                         onClick={() => {
                           setEditOutput(false);
