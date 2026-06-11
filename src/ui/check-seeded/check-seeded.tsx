@@ -57,7 +57,7 @@ const CheckSeeded = ({ labId, variant }: pageProps) => {
           <motion.div variants={itemVariants} className="py-7 flex items-center justify-between">
             <div>
               <span className="text-3xl font-bold flex items-center gap-3 flex-wrap">
-                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
                   {labNo}. {labName}
                 </span>
                 <Badge variant={"secondary"} className="text-sm px-3 py-1 shadow-sm">{subjectName}</Badge>

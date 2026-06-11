@@ -213,7 +213,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 24 }}
-              className="absolute right-0 flex gap-2 z-10 pl-4 bg-gradient-to-l from-card via-card to-transparent"
+              className="absolute right-0 flex gap-2 z-10 pl-4 bg-linear-to-l from-card via-card to-transparent"
             >
               <Button
                 variant={editQuestion ? "destructive" : "secondary"}
