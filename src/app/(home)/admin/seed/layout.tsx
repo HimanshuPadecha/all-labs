@@ -6,7 +6,7 @@ import { AppSidebar } from "@/ui/reuseables/appsidebar";
 import React from "react";
 
 interface pageProps {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 
 const Layout = ({ children }: pageProps) => {
