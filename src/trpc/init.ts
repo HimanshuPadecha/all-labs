@@ -7,7 +7,6 @@ import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export const createTRPCContext = cache(async () => {
-
   const { userId: clerkId } = await auth();
 
   return { clerkId };
@@ -28,6 +27,10 @@ export const protectedProcedure = t.procedure.use(async (opts) => {
 
   if (!clerkId) {
     throw new TRPCError({ code: "NOT_FOUND" });
+  }
+
+  if (clerkId !== process.env.ADMIN_CLERKID) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
   const [user] = await db
