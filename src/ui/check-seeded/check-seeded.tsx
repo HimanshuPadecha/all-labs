@@ -1,11 +1,12 @@
 "use client";
 import { Badge } from "@/components/ui/badge";
+import { useSidebar } from "@/components/ui/sidebar";
 import { trpc } from "@/trpc/client";
 import AddQuestion from "@/ui/reuseables/add-question";
 import DeleteLabQuestionsButton from "@/ui/reuseables/delete-lab-questions";
 import NoQuestions from "@/ui/reuseables/no-questions";
 import QuestionHolder from "@/ui/reuseables/question-holder";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 
 interface pageProps {
@@ -22,10 +23,16 @@ const CheckSeeded = ({ labId, variant }: pageProps) => {
   const { name: subjectName } = questions[0]?.subject;
   const { name: labName, labNo } = questions[0]?.lab;
 
+  const {setOpenMobile} = useSidebar()
+
+  useEffect(() => {
+    setOpenMobile(false)
+  }, [])
+
   return (
     <ErrorBoundary fallback={<p>Error...</p>}>
       <Suspense fallback={<p>Loading...</p>}>
-        <div className="flex flex-col gap-4 max-w-[1200px] pb-12">
+        <div className="flex flex-col gap-4 max-w-[1200px] pb-12 mt-4">
           <div className="py-7 flex items-center justify-between">
             <div>
               <span className="text-3xl font-bold">

@@ -32,7 +32,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
   const [editAnswer, setEditAnswer] = useState(false);
   const [outputText, setOutputText] = useState(answer?.outputText || "");
   const [editOutput, setEditOutput] = useState(false);
-  const answerRef = useRef<HTMLTextAreaElement>(null)
+  const answerRef = useRef<HTMLTextAreaElement>(null);
 
   const [isAnswerCopied, setIsAnswerCopied] = useState(false);
   const outputRef = useRef<HTMLTextAreaElement>(null);
@@ -75,7 +75,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
   const editAnswerHandler = () => {
     if (!editAnswer) {
       setEditAnswer(true);
-      answerRef.current?.focus()
+      answerRef.current?.focus();
     } else {
       if (answer?.answerText === answerState) {
         toast.warning("Edit something to Commit !!", {
@@ -180,7 +180,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
             />
           </div>
         ) : (
-          <p className="whitespace-pre-wrap wrap-break-word overflow-wrap-anywhere">
+          <p className="whitespace-pre-wrap break-all overflow-hidden max-w-full text-xs md:text-lg">
             <span className="font-bold text-xl">{que.questionNo}</span>.{" "}
             {que.questionText}
           </p>
@@ -255,7 +255,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
         <Textarea
           value={answerState}
           readOnly={!editAnswer}
-          className="resize-none overflow-y-auto py-5"
+          className="w-full min-w-0 resize-none overflow-auto break-all py-5 text-xs"
           onChange={(e) => setAnswerState(e.target.value)}
           ref={answerRef}
         />
@@ -322,10 +322,10 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
 
       {answer && (
         <div className="relative">
-          <span>Output : </span>
+          <span className="text-xs md:text-lg">Output : </span>
           <Textarea
             value={outputText === "" && !editOutput ? "N/A" : outputText}
-            className="resize-none overflow-y-auto"
+            className="resize-none overflow-y-auto text-xs "
             readOnly={!editOutput}
             onChange={(e) => setOutputText(e.target.value)}
             ref={outputRef}

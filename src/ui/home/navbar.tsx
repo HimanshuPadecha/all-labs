@@ -12,8 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface NavbarProps {
-  onBrowseClick: () => void;
-  onExploreClick: () => void;
+  onBrowseClick?: () => void;
+  onExploreClick?: () => void;
 }
 
 export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
@@ -43,7 +43,8 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
+         <Link href={"/"}>
+         <div className="flex items-center gap-2.5">
             <div className="h-8.5 w-8.5 rounded-sm bg-white flex items-center justify-center text-black font-mono font-black text-sm tracking-tighter">
               AL
             </div>
@@ -56,6 +57,7 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
               </span>
             </div>
           </div>
+         </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -139,13 +141,13 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
           >
             <div className="px-4 pt-2 pb-6 space-y-4">
               <Link href={"/labs/78c99b00-c8ba-4264-8a17-2180f186f161"}>
-                <button className="block w-full text-left px-3 py-2 text-sm uppercase tracking-wider font-medium text-zinc-300 hover:text-white hover:bg-zinc-900">
+                <button className="block w-full text-left px-3 py-2 text-sm uppercase tracking-wider font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 mt-3">
                   Lab Manuals
                 </button>
               </Link>
               <button
                 onClick={() => {
-                  onExploreClick();
+                  onExploreClick?.();
                   setIsOpen(false);
                 }}
                 className="block w-full text-left px-3 py-2 text-sm uppercase tracking-wider font-medium text-zinc-300 hover:text-white hover:bg-zinc-900"
@@ -161,7 +163,7 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
               </a>
 
               <div className="pt-4 border-t border-zinc-900 space-y-3">
-                <button
+                {/* <button
                   onClick={() => {
                     onBrowseClick();
                     setIsOpen(false);
@@ -170,9 +172,9 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
                 >
                   START BROWSING
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </button> */}
                 <a
-                  href="https://github.com"
+                  href="https://github.com/himanshupadecha/all-labs"
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setIsOpen(false)}

@@ -43,8 +43,8 @@ export function AppSidebar({ variant }: sidebarProps) {
   // if (!isLoaded) return <div>Loading....</div>;
 
   return (
-    <Sidebar className="border-r shadow-sm">
-      <SidebarHeader className="w-full flex flex-col items-start px-5 py-6 border-b relative">
+    <Sidebar className="border-r shadow-sm z-60">
+      <SidebarHeader className="w-full flex flex-col items-start px-5 py-6 border-b relative bg-black">
         <div className="flex items-center gap-3 w-full">
           <div className="bg-primary p-2.5 rounded-xl shadow-sm text-primary-foreground">
             <GraduationCap className="w-5 h-5" />
@@ -59,10 +59,10 @@ export function AppSidebar({ variant }: sidebarProps) {
           </div>
         </div>
         {/* We keep the trigger exactly where it was to prevent breaking layout */}
-        <SidebarTrigger className="absolute right-[-40px] top-6 shadow-md border bg-background" />
+        <SidebarTrigger className="absolute right-[-40px] top-14 shadow-md border bg-background" />
       </SidebarHeader>
 
-      <SidebarContent className="px-3 pt-6 pb-4">
+      <SidebarContent className="px-3 pt-6 pb-4 bg-black">
         {/* Call to Action Button */}
         <div className="px-2 mb-6">
           <Link
@@ -152,7 +152,7 @@ export function AppSidebar({ variant }: sidebarProps) {
         )}
       </SidebarContent>
 
-      <SidebarFooter className="p-4 pb-6 mt-auto border-t">
+      <SidebarFooter className="p-4 pb-6 mt-auto border-t bg-black">
         <div className="bg-muted/30 p-4 rounded-xl border border-muted/50 flex flex-col gap-3 shadow-sm">
           <div className="flex items-center gap-3 mb-1">
             <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs shrink-0">
