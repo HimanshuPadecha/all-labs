@@ -160,7 +160,7 @@ export default function Hero({ onBrowseClick, onExploreClick, selectedSubjectId,
           <motion.a 
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            href="https://github.com"
+            href="https://github.com/himanshupadecha/all-labs"
             target="_blank"
             rel="noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-zinc-950 border border-zinc-805 hover:bg-zinc-900 text-zinc-300 px-8 py-3.5 rounded-none text-xs font-bold uppercase tracking-widest transition-all duration-200 cursor-pointer text-center"
