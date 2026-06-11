@@ -43,21 +43,21 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-         <Link href={"/"}>
-         <div className="flex items-center gap-2.5">
-            <div className="h-8.5 w-8.5 rounded-sm bg-white flex items-center justify-center text-black font-mono font-black text-sm tracking-tighter">
-              AL
+          <Link href={"/"}>
+            <div className="flex items-center gap-2.5">
+              <div className="h-8.5 w-8.5 rounded-sm bg-white flex items-center justify-center text-black font-mono font-black text-sm tracking-tighter">
+                AL
+              </div>
+              <div className="flex flex-col">
+                <span className="font-sans font-bold text-white tracking-widest text-md leading-none">
+                  ALL LABS
+                </span>
+                <span className="text-[9px] text-zinc-500 font-mono tracking-widest mt-1">
+                  CS & MCA REGISTRY
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-sans font-bold text-white tracking-widest text-md leading-none">
-                ALL LABS
-              </span>
-              <span className="text-[9px] text-zinc-500 font-mono tracking-widest mt-1">
-                CS & MCA REGISTRY
-              </span>
-            </div>
-          </div>
-         </Link>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -163,16 +163,19 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
               </a>
 
               <div className="pt-4 border-t border-zinc-900 space-y-3">
-                {/* <button
-                  onClick={() => {
-                    onBrowseClick();
-                    setIsOpen(false);
-                  }}
-                  className="w-full flex items-center justify-center gap-2 bg-white text-black font-bold uppercase tracking-widest text-xs py-3 px-4 rounded-sm hover:bg-zinc-200 transition-colors cursor-pointer"
-                >
-                  START BROWSING
-                  <ArrowRight className="w-4 h-4" />
-                </button> */}
+                {!isSignedIn && (
+                  <SignInButton>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                      }}
+                      className="w-full flex items-center justify-center gap-2 bg-white text-black font-bold uppercase tracking-widest text-xs py-3 px-4 rounded-sm hover:bg-zinc-200 transition-colors cursor-pointer"
+                    >
+                      Sign in
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </SignInButton>
+                )}
                 <a
                   href="https://github.com/himanshupadecha/all-labs"
                   target="_blank"
