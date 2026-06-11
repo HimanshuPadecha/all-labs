@@ -52,7 +52,7 @@ const CheckSeeded = ({ labId, variant }: pageProps) => {
           variants={containerVariants}
           initial="hidden"
           animate="show"
-          className="flex flex-col gap-4 max-w-[1200px] pb-12 mt-4 w-full"
+          className="flex flex-col gap-4 max-w-[1200px] mx-auto pb-12 mt-4 px-4 md:px-8 w-full"
         >
           <motion.div variants={itemVariants} className="py-7 flex items-center justify-between">
             <div>

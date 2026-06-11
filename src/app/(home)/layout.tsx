@@ -6,7 +6,7 @@ interface pageProps {
 
 const Layout = ({ children }: pageProps) => {
   return (
-    <div className="flex items-center justify-center bg-black ">
+    <div className="bg-black min-h-screen">
       {children}
     </div>
   );

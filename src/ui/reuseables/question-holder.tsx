@@ -197,7 +197,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="whitespace-pre-wrap wrap-break-words overflow-hidden w-full text-sm md:text-base pr-8 md:pr-12 text-foreground/90 leading-relaxed"
+              className="whitespace-pre-wrap break-words overflow-hidden w-full text-sm md:text-base pr-8 md:pr-12 text-foreground/90 leading-relaxed"
             >
               <span className="font-bold text-lg md:text-xl text-primary">{que.questionNo}</span>.{" "}
               {que.questionText}
@@ -277,7 +277,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
           value={answerState}
           readOnly={!editAnswer}
           className={cn(
-            "w-full min-w-0 min-h-[120px] resize-y wrap-break-words py-4 px-3 md:px-5 text-xs md:text-sm font-mono bg-transparent border-none focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300",
+            "w-full min-w-0 min-h-[120px] resize-y break-words py-4 px-3 md:px-5 text-xs md:text-sm font-mono bg-transparent border-none focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300",
             editAnswer && "bg-background shadow-inner"
           )}
           onChange={(e) => setAnswerState(e.target.value)}
@@ -359,7 +359,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
             <Textarea
               value={outputText === "" && !editOutput ? "N/A" : outputText}
               className={cn(
-                "w-full resize-y wrap-break-words text-xs md:text-sm font-mono bg-transparent border-none py-3 px-3 md:px-5 focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300 text-muted-foreground",
+                "w-full resize-y break-words text-xs md:text-sm font-mono bg-transparent border-none py-3 px-3 md:px-5 focus-visible:ring-1 focus-visible:ring-primary/40 transition-all duration-300 text-muted-foreground",
                 editOutput ? "bg-background shadow-inner min-h-[100px] text-foreground" : "min-h-[60px]"
               )}
               readOnly={!editOutput}

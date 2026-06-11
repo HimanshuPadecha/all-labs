@@ -15,11 +15,11 @@ const Layout = ({ children }: pageProps) => {
 
   return (
     <HydrateClient>
-      <SidebarProvider className="flex items-center justify-center">
+      <SidebarProvider className="flex w-full">
         <AppSidebar variant="admin" />
         <SidebarTrigger className="fixed top-16 left-3 md:hidden z-20" />
         <Navbar />
-        <div className="min-h-screen flex items-center justify-center px-4 relative mt-14">
+        <div className="min-h-screen flex-1 px-4 relative mt-14 w-full">
           {children}
         </div>
       </SidebarProvider>
