@@ -32,6 +32,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
   const [editAnswer, setEditAnswer] = useState(false);
   const [outputText, setOutputText] = useState(answer?.outputText || "");
   const [editOutput, setEditOutput] = useState(false);
+  const answerRef = useRef<HTMLTextAreaElement>(null)
 
   const [isAnswerCopied, setIsAnswerCopied] = useState(false);
   const outputRef = useRef<HTMLTextAreaElement>(null);
@@ -74,6 +75,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
   const editAnswerHandler = () => {
     if (!editAnswer) {
       setEditAnswer(true);
+      answerRef.current?.focus()
     } else {
       if (answer?.answerText === answerState) {
         toast.warning("Edit something to Commit !!", {
@@ -255,6 +257,7 @@ const QuestionHolder = ({ question, variant }: pageProps) => {
           readOnly={!editAnswer}
           className="resize-none overflow-y-auto py-5"
           onChange={(e) => setAnswerState(e.target.value)}
+          ref={answerRef}
         />
         {variant === "admin" && (
           <div
