@@ -173,7 +173,7 @@ export default function Navbar({ onBrowseClick, onExploreClick }: NavbarProps) {
                     >
                       Sign in
                       <ArrowRight className="w-4 h-4" />
-                    </button>
+                      </button>
                   </SignInButton>
                 )}
                 <a

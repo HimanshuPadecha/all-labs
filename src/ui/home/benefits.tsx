@@ -33,7 +33,7 @@ export default function Benefits() {
               <div>
                 <div className="flex justify-between items-center text-xs font-mono mb-2 uppercase">
                   <span className="text-zinc-400">Manual Research Run (Hours per Subject)</span>
-                  <span className="text-white font-bold">12+ HOURS / WEEK</span>
+                  <span className="text-white font-bold">4+ HOURS / WEEK</span>
                 </div>
                 <div className="h-6 w-full bg-zinc-900 border border-zinc-805 p-0.5 rounded-none overflow-hidden">
                   <div className="h-full bg-zinc-500 w-full rounded-none" />
@@ -81,7 +81,7 @@ export default function Benefits() {
               CORE PLATFORM BENEFITS
             </h3>
             <p className="text-zinc-500 text-sm leading-relaxed">
-              Writing journals manually is a repetitive task. Our curated archive saves time, allowing computer science students to focus on solving software engineering problems, debugging scripts, and preparing portfolios.
+              Writing journals manually is a repetitive task. Our curated archive saves time, allowing MCA students to focus on solving software engineering problems, debugging scripts, and preparing portfolios.
             </p>
 
             <div className="space-y-4 pt-4">
@@ -91,7 +91,7 @@ export default function Benefits() {
                 </div>
                 <div>
                   <strong className="text-white uppercase tracking-wider text-[11px] block">Unified Lab Material Registry</strong>
-                  <p className="text-zinc-405 text-xs mt-1">Every single lab session is fully available inside this platform. There is no need to waste valuable hours doing endless Google search runs or tracing old archives.</p>
+                  <p className="text-zinc-405 text-xs mt-1">Every single lab session is fully available inside this platform. There is no need to invest valuable hours doing endless Google search runs or tracing old archives.</p>
                 </div>
               </div>
 
@@ -101,7 +101,7 @@ export default function Benefits() {
                 </div>
                 <div>
                   <strong className="text-white uppercase tracking-wider text-[11px] block">No More Academic Fumbling</strong>
-                  <p className="text-zinc-405 text-xs mt-1">Eliminate the unnecessary effort of spending days figuring out the entire complex database configuration or compiler steps by yourself.</p>
+                  <p className="text-zinc-405 text-xs mt-1">Eliminate the effort of spending days figuring out the entire complex database configuration or compiler steps by yourself.</p>
                 </div>
               </div>
 
@@ -120,8 +120,8 @@ export default function Benefits() {
                   ✓
                 </div>
                 <div>
-                  <strong className="text-white uppercase tracking-wider text-[11px] block">Break the endless busywork trap</strong>
-                  <p className="text-zinc-405 text-xs mt-1">Directly break the university's core administrative principle of keeping you perpetually loaded with redundant documentation tasks just to stay busy.</p>
+                  <strong className="text-white uppercase tracking-wider text-[11px] block">Better First Semester for Juniors</strong>
+                  <p className="text-zinc-405 text-xs mt-1">As MCA first-semester students, I worked to ensure future juniors won't face the same challenges I did.</p>
                 </div>
               </div>
             </div>
